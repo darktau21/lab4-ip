@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useState, ChangeEvent } from "react";
 import {
+  Box,
   Button,
   InputLabel,
   MenuItem,
@@ -12,8 +13,17 @@ import {
   TableHead,
   TableRow,
   TextField,
+  Typography,
 } from "@mui/material";
 import { calc, DistFunctions, type Model } from "./calcs";
+import {
+  CartesianGrid,
+  Line,
+  LineChart,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 // calc(1000, 12, 3, [2, 2.5, 3, 3.5, 4], "exp", "exp", "exp", "r", 0.45);
 
 function App() {
@@ -158,7 +168,7 @@ function App() {
             </TableHead>
             <TableBody>
               {res.map((model, i) => (
-                <TableRow>
+                <TableRow key={model.PErr}>
                   <TableCell>{model.U}</TableCell>
                   <TableCell>{i % 2 === 1 ? 2 : 1}</TableCell>
                   <TableCell>{model.N}</TableCell>
@@ -176,6 +186,171 @@ function App() {
               ))}
             </TableBody>
           </Table>
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "repeat(2, 1fr)",
+              placeItems: "center",
+              gap: "3rem",
+            }}
+          >
+            <Box
+              sx={{
+                marginTop: "1rem",
+                width: "100%",
+                height: "600px",
+                padding: "1rem",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Typography variant="h4">
+                График зависимости искажения одиночного сигнала Pош от Uпор
+                (Опыт 1)
+              </Typography>
+              <LineChart
+                data={res.filter((_, i) => i % 2 === 0)}
+                width={600}
+                height={600}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <Line type="monotone" dataKey={"PErr"} />
+                <Tooltip />
+                <XAxis dataKey="U" />
+                <YAxis dataKey="PErr" />
+              </LineChart>
+            </Box>
+            <Box
+              sx={{
+                marginTop: "1rem",
+                width: "100%",
+                height: "700px",
+                padding: "1rem",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Typography variant="h4">
+                График зависимости искажения одиночного сигнала Pош от Uпор
+                (Опыт 2)
+              </Typography>
+              <LineChart
+                data={res.filter((_, i) => i % 2 === 1)}
+                width={600}
+                height={600}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <Line type="monotone" dataKey={"PErr"} />
+                <Tooltip />
+                <XAxis dataKey="U" />
+                <YAxis dataKey="PErr" />
+              </LineChart>
+            </Box>
+            <Box
+              sx={{
+                marginTop: "1rem",
+                width: "100%",
+                height: "600px",
+                padding: "1rem",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Typography variant="h4">График Pнд(Uпор) (Опыт 1)</Typography>
+              <LineChart
+                data={res.filter((_, i) => i % 2 === 0)}
+                width={600}
+                height={600}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <Line type="monotone" dataKey={"PNd"} />
+                <Tooltip />
+                <XAxis dataKey="U" />
+                <YAxis dataKey="PNd" />
+              </LineChart>
+            </Box>
+            <Box
+              sx={{
+                marginTop: "1rem",
+                width: "100%",
+                height: "700px",
+                padding: "1rem",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Typography variant="h4">График Pнд(Uпор) (Опыт 2)</Typography>
+              <LineChart
+                data={res.filter((_, i) => i % 2 === 1)}
+                width={600}
+                height={600}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <Line type="monotone" dataKey={"PNd"} />
+                <Tooltip />
+                <XAxis dataKey="U" />
+                <YAxis dataKey="PNd" />
+              </LineChart>
+            </Box>
+            <Box
+              sx={{
+                marginTop: "1rem",
+                width: "100%",
+                height: "600px",
+                padding: "1rem",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Typography variant="h4">График Pсд(Uпор) (Опыт 1)</Typography>
+              <LineChart
+                data={res.filter((_, i) => i % 2 === 0)}
+                width={600}
+                height={600}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <Line type="monotone" dataKey={"PSd"} />
+                <Tooltip />
+                <XAxis dataKey="U" />
+                <YAxis dataKey="PSd" />
+              </LineChart>
+            </Box>
+            <Box
+              sx={{
+                marginTop: "1rem",
+                width: "100%",
+                height: "700px",
+                padding: "1rem",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Typography variant="h4">График Pсд(Uпор) (Опыт 2)</Typography>
+              <LineChart
+                data={res.filter((_, i) => i % 2 === 1)}
+                width={600}
+                height={600}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <Line type="monotone" dataKey={"PSd"} />
+                <Tooltip />
+                <XAxis dataKey="U" />
+                <YAxis dataKey="PSd" />
+              </LineChart>
+            </Box>
+          </Box>
         </Paper>
       )}
     </div>
